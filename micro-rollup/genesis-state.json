@@ -1,0 +1,12 @@
+{
+    "state": {
+        "game": [
+            {
+                "address": "0x41D22F2e55BD7B6bbb16f82e852a58c36C5D5Cf8",
+                "score": 0,
+                "lives": 3
+            }
+        ],
+        "leaderboard": []
+    }
+}
