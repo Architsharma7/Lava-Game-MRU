@@ -13,5 +13,8 @@
     "cors": "^2.8.5",
     "ethers": "^6.11.1",
     "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.17.0"
   }
 }
