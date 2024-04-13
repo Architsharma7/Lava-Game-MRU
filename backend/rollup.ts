@@ -25,6 +25,7 @@ export const registerUser = async (address: string) => {
     const responseforeip = await fetch(
       `http://localhost:3000/getEIP712Types/${actionName}`
     );
+    console.log("responseforeip", responseforeip)
     const eip712Types = (await responseforeip.json()).eip712Types;
     const inputs = { address };
     console.log("eiptypes", eip712Types);
@@ -35,7 +36,7 @@ export const registerUser = async (address: string) => {
     const body = JSON.stringify({
       msgSender: wallet.address,
       signature: signature,
-      payload: inputs,
+      inputs: inputs,
     });
 
     const res = await fetch(`http://localhost:3000/${actionName}`, {
@@ -70,7 +71,7 @@ export const updateScore = async (data: GameType) => {
     const body = JSON.stringify({
       msgSender: wallet.address,
       signature: signature,
-      payload: inputs,
+      inputs: inputs,
     });
 
     const res = await fetch(`http://localhost:3000/${actionName}`, {
@@ -105,7 +106,7 @@ export const updateLeaderboard = async (data: LeaderboardType) => {
     const body = JSON.stringify({
       msgSender: wallet.address,
       signature: signature,
-      payload: inputs,
+      inputs: inputs,
     });
 
     const res = await fetch(`http://localhost:3000/${actionName}`, {

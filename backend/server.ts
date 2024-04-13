@@ -3,7 +3,7 @@ const app = express();
 const cors = require("cors");
 const PORT = 3001;
 import _ from "lodash";
-import { registerUser } from "./rollup";
+import { registerUser, updateScore, updateLeaderboard } from "./rollup";
 
 app.use(express.json());
 app.use(cors());
@@ -15,12 +15,23 @@ const resetApiRequestSent = () => {
   apiRequestSent = false;
 };
 
-const handleRequest = (req, res) => {
+const handleRequest = async(req, res) => {
   const { score, walletAddress, lives } = req.body;
   if (!apiRequestSent) {
     console.log("Received score:", score);
     console.log("Received address:", walletAddress);
     console.log("Received lives:", lives);
+    const updateScoreData = await updateScore({
+      address: walletAddress,
+      score: score,
+      lives: lives,
+    });
+    console.log(updateScoreData);
+    const updateLeaderboardData = await updateLeaderboard({
+      address: walletAddress,
+      score: score,
+    });
+    console.log(updateLeaderboardData);
     res.send("Score received successfully");
     apiRequestSent = true;
     setTimeout(resetApiRequestSent, 3000);
@@ -44,7 +55,7 @@ app.post("/register", async (req, res) => {
     if (walletAddress) {
       const registrationResult = await registerUser(walletAddress);
       if (registrationResult) {
-        res.json({ status: "success" });
+      res.json({ status: "success" });
       } else {
         res.status(400).send("Registration failed");
       }

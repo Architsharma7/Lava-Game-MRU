@@ -79,6 +79,14 @@ app.post("/:reducerName", async (req: Request, res: Response) => {
   return;
 });
 
+type ActionName = keyof typeof schemas;
+
+app.get("/getEIP712Types/:action", (_req: Request, res: Response) => {
+  //@ts-ignore
+  const { action }: { action: ActionName } = _req.params;
+  const eip712Types = schemas[action].EIP712TypedData.types;
+  return res.send({ eip712Types });
+});
 
 app.get("/", (_req: Request, res: Response) => {
   return res.send({ state: erc20Machine?.state });
